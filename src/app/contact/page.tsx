@@ -52,7 +52,7 @@ export default function ContactPage() {
           <p className="text-gray-600 text-center mb-4">Send us an email and we&apos;ll respond within 24 hours</p>
           <div className="text-center">
             <a href="mailto:support@amraj.in" className="text-emerald-600 hover:text-emerald-700 font-semibold text-lg">
-              care@amraj.in
+              care@edaperfumes.com
             </a>
           </div>
         </div>
@@ -65,7 +65,7 @@ export default function ContactPage() {
           <p className="text-gray-600 text-center mb-4">Speak directly with our wellness experts</p>
           <div className="text-center">
             <a href="tel:+919211619009" className="text-yellow-600 hover:text-yellow-700 font-semibold text-lg">
-              +91 92116 19009
+            +91 87997 95681
             </a>
           </div>
         </div>
@@ -78,9 +78,8 @@ export default function ContactPage() {
           <p className="text-gray-600 text-center mb-4">Come visit our office for a personal consultation</p>
           <div className="text-center">
             <address className="text-emerald-600 not-italic font-medium text-sm leading-relaxed">
-              D5/204, Chintpurni House,<br />
-              Central Market, Prashant Vihar,<br />
-              New Delhi-110085
+            WZ-11B Ground Floor, Sahib Pura, <br/> 
+            Tilak Nagar, New Delhi - 110018
             </address>
           </div>
         </div>

@@ -32,7 +32,7 @@ export default function Footer() {
             {/* Social Media Icons */}
             <div className="flex gap-3">
               <Link 
-                href="https://www.facebook.com/share/171nqqCNnk/?mibextid=wwXIfr" 
+                href="https://www.facebook.com/edaperfumes" 
                 className="p-3 bg-white rounded-lg shadow-md hover:shadow-lg border border-gray-200 hover:bg-rose-50 hover:border-rose-200 transition-all duration-300 group"
               >
                 <FaFacebookF className="text-gray-600 group-hover:text-rose-500 transition-colors" />
@@ -44,7 +44,7 @@ export default function Footer() {
                 <FaTwitter className="text-gray-600 group-hover:text-rose-500 transition-colors" />
               </Link>
               <Link 
-                href="https://www.instagram.com/amraj_wellness?igsh=NXhjNHVvNDVlMHJr&utm_source=qr" 
+                href="https://www.instagram.com/edaperfumes" 
                 className="p-3 bg-white rounded-lg shadow-md hover:shadow-lg border border-gray-200 hover:bg-rose-50 hover:border-rose-200 transition-all duration-300 group"
               >
                 <FaInstagram className="text-gray-600 group-hover:text-rose-500 transition-colors" />
@@ -56,7 +56,7 @@ export default function Footer() {
                 <FaLinkedinIn className="text-gray-600 group-hover:text-rose-500 transition-colors" />
               </Link>
               <Link 
-                href="https://www.youtube.com/@amraj-wellness" 
+                href="https://www.youtube.com/@edaperfumes" 
                 className="p-3 bg-white rounded-lg shadow-md hover:shadow-lg border border-gray-200 hover:bg-rose-50 hover:border-rose-200 transition-all duration-300 group"
               >
                 <FaYoutube className="text-gray-600 group-hover:text-rose-500 transition-colors" />
@@ -164,7 +164,7 @@ export default function Footer() {
                   <Phone className="w-4 h-4 text-rose-500" />
                 </div>
                 <div>
-                  <span className="text-gray-600 text-sm font-medium">+91 92116 19009</span>
+                  <span className="text-gray-600 text-sm font-medium">+91 87997 95681</span>
                 </div>
               </li>
               <li className="flex items-start gap-3">
@@ -173,7 +173,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <span className="text-gray-600 text-sm font-medium leading-relaxed">
-                    D5/204, Chintpurni House, Central Market, Prashant Vihar, New Delhi-110085
+                WZ-11B Ground Floor, Sahib Pura, Tilak Nagar, New Delhi - 110018
                   </span>
                 </div>
               </li>
