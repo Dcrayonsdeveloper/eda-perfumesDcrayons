@@ -12,28 +12,19 @@ import { useTypewriter } from 'react-simple-typewriter';
 const navItems = [
   { name: "Home", to: "/" },
   { 
-    name: "For Her", 
-    to: "/shop/for-her",
-    submenu: [
-      { name: "Bite Me", to: "https://www.edaperfumes.com/product/eclat-damour-bite-me-seductive-floral-citrus-eau-de-parfum-jasmine-rose-patchouli-vanilla-luxury-fragrance-long-lasting-premium-edp-100ml", price: "999" },
-      { name: "Nude Poison", to: "https://www.edaperfumes.com/product/eclat-damour-nude-poison-elegant-unisex-eau-de-parfum-sophisticated-citrus-floral-woody-blend-long-lasting-luxury-fragrance-100ml", price: "999" }
-    ]
-  },
-  { 
-    name: "For Him", 
-    to: "/shop/for-him",
-    submenu: [
-      { name: "Lusty Nights", to: "https://www.edaperfumes.com/product/eclat-damour-lusty-nights-premium-unisex-eau-de-parfum-bold-citrus-spicy-woody-luxury-fragrance-long-lasting-signature-scent-100ml", price: "999" },
-      { name: "Guilty Midnight", to: "https://www.edaperfumes.com/product/eclat-damour-guilty-midnight-shades-premium-eau-de-parfum-bold-unisex-luxury-fragrance-long-lasting-citrus-spicy-woody-notes-100ml", price: "999" }
-    ]
-  },
-  { 
-    name: "Unisex", 
+    name: "Unisex 100ml", 
     to: "/shop/unisex",
     submenu: [
-      { name: "Nude Poison", to: "https://www.edaperfumes.com/product/eclat-damour-nude-poison-elegant-unisex-eau-de-parfum-sophisticated-citrus-floral-woody-blend-long-lasting-luxury-fragrance-100ml", price: "999" },
-      { name: "Lusty Nights", to: "https://www.edaperfumes.com/product/eclat-damour-lusty-nights-premium-unisex-eau-de-parfum-bold-citrus-spicy-woody-luxury-fragrance-long-lasting-signature-scent-100ml", price: "999" }
+      { name: "Bite Me", to: "https://www.edaperfumes.com/product/bite-me-seductive-floral-citrus-eau-de-parfum", price: "549" },
+      { name: "Nude Poison", to: "https://www.edaperfumes.com/product/nude-poison-elegant-unisex-eau-de-parfum-100ml", price: "569" },
+      { name: "Bad Habits", to: "https://www.edaperfumes.com/product/bad-habits-eau-de-parfum-100ml", price: "529" },
+      { name: "Oudh Shukran", to: "https://www.edaperfumes.com/product/oudh-shukran-eau-de-parfum-100ml", price: "499" },
+      { name: "Lusty Nights", to: "https://www.edaperfumes.com/product/lusty-nights-premium-unisex-eau-de-parfum-100ml", price: "569" },
+      { name: "Guilty Midnight", to: "https://www.edaperfumes.com/product/guilty-premium-eau-de-parfum-100ml", price: "599" }
     ]
+  },
+  { 
+    name: "Combos", to: "/combos"
   },
   { name: "Shop All", to: "/shop" },
   { name: "About", to: "/about" },
