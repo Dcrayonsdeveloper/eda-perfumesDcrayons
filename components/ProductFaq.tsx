@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
+import { Sparkles, MessageCircle, Mail } from 'lucide-react';
 
 interface FAQ {
   question: string;
@@ -13,82 +14,40 @@ interface ProductFAQProps {
   productName: string;
 }
 
-// FAQ Data for different EDA Perfumes products
+// FAQ Data for different products
 const faqData: Record<string, FAQ[]> = {
-  'oudh-shukran': [
-    {
-      question: "What is ECLAT D'AMOUR Oudh Shukran?",
-      answer: "A sophisticated 100ml Eau de Parfum that embodies luxury and elegance. This premium unisex fragrance combines traditional Arabic attar-inspired notes with contemporary sophistication, featuring exquisite Oudh, Amber, Musk, and Rose accords."
-    },
-    {
-      question: "How long does the fragrance last?",
-      answer: "As an Eau de Parfum concentration with premium quality ingredients, Oudh Shukran offers exceptional longevity of 8-12 hours on skin and even longer on clothing. The rich Oudh and Amber base notes ensure lasting presence throughout your day and night."
-    },
-    {
-      question: "Is this fragrance suitable for both men and women?",
-      answer: "Absolutely! Oudh Shukran is expertly crafted as a unisex fragrance. The sophisticated blend of Oudh, spices, and florals creates a perfect balance that complements any gender, making it ideal for those who appreciate boundary-breaking, sophisticated scents."
-    },
-    {
-      question: "What occasions is this fragrance best suited for?",
-      answer: "This versatile luxury fragrance works beautifully for:\n• Formal events and evening occasions\n• Special romantic dates\n• Professional settings where you want to make an impression\n• Cultural celebrations and gatherings\n• Everyday luxury for fragrance connoisseurs"
-    },
-    {
-      question: "What are the main fragrance notes?",
-      answer: "Top Notes: Saffron, Bergamot, Rose\nHeart Notes: Indian Oudh, Amber, Patchouli\nBase Notes: Musk, Sandalwood, Vanilla, Leather\n\nThis carefully orchestrated composition creates a warm, mysterious, and sensual experience that evolves beautifully throughout the day."
-    },
-    {
-      question: "How should I apply this perfume for best results?",
-      answer: "For optimal performance:\n• Apply to pulse points (wrists, neck, behind ears)\n• Spray on freshly moisturized skin for better longevity\n• Don't rub wrists together - let it dry naturally\n• Layer with unscented lotion for extended wear\n• 2-3 sprays are sufficient for all-day presence"
-    },
-    {
-      question: "Is this an authentic Oudh fragrance?",
-      answer: "Yes! Oudh Shukran features high-quality Oudh essence blended with complementary notes. While it's inspired by traditional Arabic attar, it's created as a modern Eau de Parfum for easy application and sophisticated wear."
-    },
-    {
-      question: "Can I wear this fragrance daily?",
-      answer: "Absolutely! While rich and luxurious, the balanced composition makes it suitable for daily wear. Many customers make it their signature scent for both professional and personal occasions."
-    },
-    {
-      question: "How should I store my perfume?",
-      answer: "To maintain fragrance quality:\n• Store in a cool, dry place away from direct sunlight\n• Keep the cap tightly closed when not in use\n• Avoid bathroom storage (humidity affects longevity)\n• Keep away from heat sources\n• Original box provides ideal protection"
-    },
-    {
-      question: "Is this fragrance suitable for sensitive skin?",
-      answer: "Our fragrances are crafted with quality ingredients. However, we recommend performing a patch test if you have sensitive skin. Apply a small amount to your inner wrist and wait 24 hours to check for any reaction."
-    }
-  ],
   'default': [
     {
-      question: "What makes EDA Perfumes different from other brands?",
-      answer: "EDA Perfumes specializes in seductive, luxury fragrances that blend Arabic attar-inspired traditions with contemporary sophistication. Our Eau de Parfum concentrations ensure long-lasting wear and exceptional quality at accessible luxury pricing."
+      question: "What makes Vyadhihar Foods different from other brands?",
+      answer: "Vyadhihar Foods specializes in premium, 100% natural dry fruits and healthy snacks. Our products are lab-tested, handpicked for quality, and contain no preservatives or artificial additives. We source from trusted suppliers and maintain rigorous quality standards at every step."
     },
     {
-      question: "How long do EDA Perfumes last?",
-      answer: "Our Eau de Parfum formulations typically last 8-12 hours on skin and even longer on clothing, depending on skin type, climate, and application method. The premium concentration ensures lasting presence throughout your day."
+      question: "Are your products 100% natural?",
+      answer: "Yes! All our dry fruits and snacks are completely natural with:\n• No preservatives or artificial colors\n• No added chemicals\n• Lab-tested for purity\n• Carefully sourced and handpicked\n• Packaged to maintain freshness and quality"
     },
     {
-      question: "Are EDA Perfumes suitable for all genders?",
-      answer: "Most of our collection features sophisticated unisex fragrances designed for anyone who appreciates luxury scents. We believe great fragrances transcend gender boundaries."
+      question: "How should I store dry fruits for maximum freshness?",
+      answer: "For best results:\n• Store in a cool, dry place away from direct sunlight\n• Keep in airtight containers after opening\n• Avoid exposure to moisture\n• Refrigeration can extend shelf life\n• Most dry fruits last 6-12 months when stored properly"
+    },
+    {
+      question: "Do you offer bulk orders for corporate gifting?",
+      answer: "Absolutely! We specialize in premium corporate gifting hampers with:\n• Attractive bulk discounts\n• Custom packaging options\n• Flexible quantity orders\n• Fast nationwide delivery\n• Dedicated customer support\n\nContact us via WhatsApp or email for personalized quotes."
     },
     {
       question: "What is your return policy?",
-      answer: "Due to the personal nature of fragrances and hygiene considerations, we cannot accept returns on opened products. Unopened products can be returned within 7 days of delivery if the packaging is undamaged. Please refer to our Returns & Refunds Policy for complete details."
+      answer: "We offer a 30-day money-back guarantee on all products. If you're not satisfied for any reason, contact us with proof of purchase for a full refund or replacement. Due to hygiene standards, products must be unopened for returns."
     },
     {
-      question: "How should I choose the right fragrance?",
-      answer: "Consider:\n• The occasion (daily wear, evening events, formal settings)\n• Your personal style and preferences\n• Season (lighter for summer, richer for winter)\n• Our product descriptions provide detailed scent profiles\n• Read customer reviews for real experiences\n• Contact our customer care for personalized recommendations"
+      question: "How long does delivery take?",
+      answer: "We deliver across India with:\n• 3-5 working days for most locations\n• Free shipping on orders above ₹999\n• Secure, hygienic packaging\n• Real-time tracking information\n• Special rates for bulk orders"
     },
     {
-      question: "Do you offer fragrance samples?",
-      answer: "Currently, we sell full-size 100ml Eau de Parfum bottles. Our detailed product descriptions, scent profiles, and customer reviews help you make informed decisions about your fragrance selection."
+      question: "Are these products suitable for dietary restrictions?",
+      answer: "Our dry fruits are naturally:\n• Vegan-friendly\n• Gluten-free\n• No added sugar (natural sweetness only)\n• Rich in protein and healthy fats\n\nAlways check individual product labels for specific allergen information, especially if you have nut allergies."
     },
     {
-      question: "How do I apply perfume correctly?",
-      answer: "For best results:\n• Apply to pulse points (wrists, neck, behind ears, inner elbows)\n• Spray on clean, moisturized skin\n• Don't rub - let it dry naturally\n• 2-4 sprays are typically sufficient\n• Layer with unscented products for extended wear"
-    },
-    {
-      question: "Are EDA Perfumes authentic and high quality?",
-      answer: "Yes! All EDA Perfumes are:\n• Crafted with premium quality ingredients\n• Manufactured to international standards\n• 100% authentic luxury fragrances\n• Properly packaged for protection and elegance\n• Backed by our quality commitment"
+      question: "What are the health benefits of your products?",
+      answer: "Our premium dry fruits offer:\n• Rich source of vitamins and minerals\n• Natural energy boost\n• Heart-healthy fats\n• Support for immunity\n• Helps in weight management\n• Improves digestion\n• Natural antioxidants"
     }
   ]
 };
@@ -121,37 +80,49 @@ const ProductFAQ: React.FC<ProductFAQProps> = ({ productSlug, productName }) => 
   };
 
   return (
-    <div className="bg-white border-t border-gray-200">
+    <div className="bg-gradient-to-b from-white to-[#FFF8DC] border-t-2 border-[#D4A574]/30 rounded-2xl overflow-hidden shadow-lg">
       {/* Header */}
-      <div className="py-12 text-center">
-        <h2 className="text-3xl lg:text-4xl font-light text-gray-900 mb-4 tracking-wide">
+      <div className="py-12 text-center bg-gradient-to-b from-[#FFF8DC] to-white border-b-2 border-[#D4A574]/30">
+        <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#D4A574] to-[#C19A6B] text-white px-6 py-2 rounded-full mb-6 shadow-lg">
+          <Sparkles className="w-4 h-4" />
+          <span className="text-sm font-semibold tracking-wide">Product FAQs</span>
+        </div>
+        
+        <h2 className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-[#8B7355] via-[#5D4E37] to-[#8B7355] bg-clip-text text-transparent mb-4 tracking-wide">
           Frequently Asked Questions
         </h2>
-        <div className="w-16 h-px bg-gray-300 mx-auto mb-4"></div>
-        <p className="text-gray-600 text-sm font-light max-w-2xl mx-auto">
+        <div className="w-24 h-1.5 bg-gradient-to-r from-[#D4A574] via-[#C19A6B] to-[#D4A574] mx-auto mb-4 rounded-full shadow-sm"></div>
+        <p className="text-[#5D4E37] text-base font-light max-w-2xl mx-auto">
           Everything you need to know about {productName}
         </p>
       </div>
 
       {/* FAQ Items */}
-      <div className="max-w-4xl mx-auto">
-        <div className="space-y-px border-t border-gray-200">
+      <div className="max-w-4xl mx-auto px-4 py-8">
+        <div className="space-y-4">
           {faqs.map((faq, index) => (
-            <div key={index} className="border-b border-gray-200">
+            <div 
+              key={index} 
+              className="border-2 border-[#D4A574]/30 rounded-xl overflow-hidden hover:border-[#D4A574] hover:shadow-lg transition-all duration-300 bg-white"
+            >
               <button
-                className="w-full px-6 py-6 text-left hover:bg-gray-50 transition-colors focus:outline-none group"
+                className="w-full px-6 py-6 text-left hover:bg-[#FFF8DC] transition-colors focus:outline-none group"
                 onClick={() => toggleFAQ(index)}
               >
                 <div className="flex justify-between items-start gap-6">
-                  <h3 className="font-light text-gray-900 text-sm lg:text-base leading-relaxed flex-1 text-left pr-4">
+                  <h3 className="font-bold text-[#5D4E37] text-base lg:text-lg leading-relaxed flex-1 text-left pr-4 group-hover:text-[#D4A574] transition-colors">
                     {faq.question}
                   </h3>
                   <div className="flex-shrink-0 mt-1">
-                    <ChevronDownIcon 
-                      className={`h-4 w-4 text-gray-600 transition-transform duration-300 ${
-                        openIndex === index ? 'rotate-180' : ''
-                      }`}
-                    />
+                    <div className={`w-8 h-8 rounded-full border-2 border-[#D4A574] flex items-center justify-center transition-all duration-300 ${
+                      openIndex === index ? 'bg-[#D4A574] rotate-180' : 'bg-white'
+                    }`}>
+                      <ChevronDownIcon 
+                        className={`h-5 w-5 transition-colors ${
+                          openIndex === index ? 'text-white' : 'text-[#D4A574]'
+                        }`}
+                      />
+                    </div>
                   </div>
                 </div>
               </button>
@@ -163,8 +134,8 @@ const ProductFAQ: React.FC<ProductFAQProps> = ({ productSlug, productName }) => 
                   : 'max-h-0 opacity-0'
               }`}>
                 <div className="px-6 pb-6 pt-0">
-                  <div className="bg-gray-50 p-6 border-l-2 border-gray-900">
-                    <p className="text-gray-700 text-sm lg:text-base leading-relaxed whitespace-pre-line font-light">
+                  <div className="bg-gradient-to-br from-[#FFF8DC] to-[#F5DEB3]/30 p-6 border-l-4 border-[#D4A574] rounded-lg">
+                    <p className="text-[#5D4E37] text-sm lg:text-base leading-relaxed whitespace-pre-line">
                       {faq.answer}
                     </p>
                   </div>
@@ -176,28 +147,37 @@ const ProductFAQ: React.FC<ProductFAQProps> = ({ productSlug, productName }) => 
       </div>
 
       {/* Footer */}
-      <div className="py-16 text-center border-t border-gray-200 mt-12 bg-gray-50">
+      <div className="py-16 text-center border-t-2 border-[#D4A574]/30 mt-8 bg-gradient-to-b from-white to-[#FFF8DC]">
         <div className="max-w-2xl mx-auto px-4">
-          <h3 className="text-xl font-light text-gray-900 mb-3 tracking-wide">
+          <div className="inline-flex items-center gap-2 bg-white/50 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border-2 border-[#D4A574]/30">
+            <MessageCircle className="w-5 h-5 text-[#D4A574]" />
+            <span className="text-sm font-semibold text-[#5D4E37]">Need Help?</span>
+          </div>
+          
+          <h3 className="text-2xl font-bold text-[#5D4E37] mb-3 tracking-wide">
             Still Have Questions?
           </h3>
-          <p className="text-gray-600 text-sm mb-8 font-light">
-            Our fragrance consultants are here to help you find your perfect scent
+          <p className="text-gray-600 text-base mb-8">
+            Our customer care team is here to help you
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
-              href="mailto:care@edaperfumes.com"
-              className="inline-block px-8 py-3 text-xs text-black border border-gray-300 hover:bg-black hover:text-white hover:border-black transition-colors tracking-widest uppercase font-light"
+              href="mailto:care@vyadhiharfoods.com"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 text-sm text-[#5D4E37] border-2 border-[#D4A574] hover:bg-[#FFF8DC] transition-all rounded-full font-bold shadow-md hover:shadow-lg"
             >
-              Email Support
+              <Mail className="w-5 h-5" />
+              <span>Email Support</span>
             </a>
             <a 
               href="https://wa.me/919876543210"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-8 py-3 text-xs text-white bg-black hover:bg-gray-800 transition-colors tracking-widest uppercase font-light"
+              className="inline-flex items-center justify-center gap-2 px-8 py-4 text-sm text-white bg-[#25D366] hover:bg-[#20BA5A] transition-all rounded-full font-bold shadow-lg hover:shadow-xl hover:scale-105"
             >
-              WhatsApp Us
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+              </svg>
+              <span>WhatsApp Us</span>
             </a>
           </div>
         </div>
