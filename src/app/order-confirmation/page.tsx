@@ -3,7 +3,7 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { Package, CheckCircle2, Clock, Truck, Phone } from "lucide-react";
+import { Package, CheckCircle2, Clock, Truck, Phone, Wallet } from "lucide-react";
 
 function OrderConfirmationContent() {
   const searchParams = useSearchParams();
@@ -12,6 +12,7 @@ function OrderConfirmationContent() {
 
   const orderId = searchParams.get("orderId");
   const wcOrderId = searchParams.get("wcOrderId");
+  const isCOD = searchParams.get("cod") === "true";
 
   useEffect(() => {
     setMounted(true);
@@ -74,30 +75,49 @@ function OrderConfirmationContent() {
                 #{wcOrderId || orderId}
               </p>
             </div>
-            {orderId && (
-              <div className="text-right">
-                <p className="text-xs font-light text-gray-600 uppercase tracking-widest mb-2">
-                  Payment ID
-                </p>
-                <p className="text-sm font-light text-gray-900 break-all">
-                  {orderId}
-                </p>
-              </div>
-            )}
+            <div className="text-right">
+              <p className="text-xs font-light text-gray-600 uppercase tracking-widest mb-2">
+                Payment Method
+              </p>
+              <p className="text-sm font-light text-gray-900">
+                {isCOD ? "Cash on Delivery" : "Online Payment"}
+              </p>
+            </div>
           </div>
+
+          {/* Payment ID for online payments */}
+          {!isCOD && orderId && (
+            <div className="mb-8 pb-8 border-b border-gray-200">
+              <p className="text-xs font-light text-gray-600 uppercase tracking-widest mb-2">
+                Payment ID
+              </p>
+              <p className="text-sm font-light text-gray-900 break-all">
+                {orderId}
+              </p>
+            </div>
+          )}
 
           {/* Timeline */}
           <div className="space-y-6">
+            {/* Payment Status - Different for COD */}
             <div className="flex items-start gap-4">
-              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-green-50 flex items-center justify-center">
-                <CheckCircle2 className="w-5 h-5 text-green-600" />
+              <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${
+                isCOD ? 'bg-blue-50' : 'bg-green-50'
+              }`}>
+                {isCOD ? (
+                  <Wallet className="w-5 h-5 text-blue-600" />
+                ) : (
+                  <CheckCircle2 className="w-5 h-5 text-green-600" />
+                )}
               </div>
               <div className="flex-1 pt-1">
                 <h3 className="text-sm font-light text-gray-900 uppercase tracking-widest mb-1">
-                  Payment Confirmed
+                  {isCOD ? "Pay on Delivery" : "Payment Confirmed"}
                 </h3>
                 <p className="text-xs font-light text-gray-600">
-                  Your payment has been successfully processed
+                  {isCOD 
+                    ? "Pay with cash or UPI when your order is delivered" 
+                    : "Your payment has been successfully processed"}
                 </p>
               </div>
             </div>
@@ -132,6 +152,28 @@ function OrderConfirmationContent() {
           </div>
         </div>
 
+        {/* COD Payment Notice */}
+        {isCOD && (
+          <div className="bg-blue-50 border border-blue-200 p-6 mb-6">
+            <div className="flex items-start gap-3">
+              <Wallet className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
+              <div>
+                <h3 className="text-sm font-light text-gray-900 uppercase tracking-widest mb-2">
+                  Payment on Delivery
+                </h3>
+                <p className="text-xs font-light text-gray-600 mb-2">
+                  You can pay when your order arrives at your doorstep
+                </p>
+                <ul className="text-xs font-light text-gray-600 space-y-1">
+                  <li>• Cash payment accepted</li>
+                  <li>• UPI payment accepted</li>
+                  <li>• Please keep exact change ready</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Delivery Info */}
         <div className="border border-gray-200 p-6 mb-6">
           <div className="flex items-start gap-3">
@@ -162,7 +204,7 @@ function OrderConfirmationContent() {
                 Our team is here to assist you with any questions
               </p>
               <a
-                href="https://api.whatsapp.com/send?phone=918799795681&text=Hi%2C%20I%20need%20help%20with%20order%20%23{wcOrderId || orderId}"
+                href={`https://api.whatsapp.com/send?phone=918799795681&text=Hi%2C%20I%20need%20help%20with%20order%20%23${wcOrderId || orderId}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center text-xs font-light text-black hover:text-gray-600 transition-colors uppercase tracking-widest"
@@ -197,6 +239,11 @@ function OrderConfirmationContent() {
           <p className="text-xs font-light text-gray-500">
             Order ID: {wcOrderId || orderId}
           </p>
+          {isCOD && (
+            <p className="text-xs font-light text-gray-500 mt-1">
+              Payment Method: Cash on Delivery
+            </p>
+          )}
         </div>
       </div>
     </div>

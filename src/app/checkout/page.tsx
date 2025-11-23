@@ -8,7 +8,6 @@ import { useFacebookPixel } from "../../../hooks/useFacebookPixel";
 import type { CartItem } from "../../../lib/facebook-pixel";
 import Script from "next/script";
 
-// [Keep all the same interfaces and config - no changes to functionality]
 const WOOCOMMERCE_CONFIG = {
   BASE_URL: 'https://cms.edaperfumes.com',
   CONSUMER_KEY: 'ck_b1a13e4236dd41ec9b8e6a1720a69397ddd12da6',
@@ -18,7 +17,7 @@ const WOOCOMMERCE_CONFIG = {
 const RAZORPAY_CONFIG = {
   KEY_ID: "rzp_live_ROhFH4ehWnRMKy",
   COMPANY_NAME: "EDA Perfumes",
-  THEME_COLOR: "#000000"  // Changed to black for minimal design
+  THEME_COLOR: "#000000"
 };
 
 interface FormData {
@@ -88,7 +87,6 @@ declare global {
   }
 }
 
-// [Keep all the API functions same - createWooCommerceOrder, updateWooCommerceOrderStatus]
 const createWooCommerceOrder = async (orderData: Record<string, unknown>): Promise<WooCommerceOrder> => {
   const apiUrl = `${WOOCOMMERCE_CONFIG.BASE_URL}/wp-json/wc/v3/orders`;
   const auth = btoa(`${WOOCOMMERCE_CONFIG.CONSUMER_KEY}:${WOOCOMMERCE_CONFIG.CONSUMER_SECRET}`);
@@ -166,6 +164,8 @@ export default function Checkout(): React.ReactElement {
   const router = useRouter();
   const { trackInitiateCheckout, trackAddPaymentInfo, trackPurchase } = useFacebookPixel();
 
+  const [paymentMethod, setPaymentMethod] = useState<'razorpay' | 'cod'>('razorpay');
+
   const total = items.reduce((sum, i) => sum + parseFloat(i.price) * i.quantity, 0);
   const deliveryCharges = total >= 500 ? 0 : 50;
 
@@ -187,7 +187,6 @@ export default function Checkout(): React.ReactElement {
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [razorpayLoaded, setRazorpayLoaded] = useState<boolean>(false);
 
-  // [Keep all useEffect, validation, coupon logic, payment handlers same]
   useEffect(() => {
     if (items.length > 0) {
       const cartItems: CartItem[] = items.map(item => ({
@@ -319,6 +318,111 @@ export default function Checkout(): React.ReactElement {
     }
   }
 
+  const handleCODSubmit = async (): Promise<void> => {
+    if (!validateForm()) {
+      toast({
+        title: "Please fix the errors",
+        description: "Check all required fields",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setLoading(true);
+    setStep("processing");
+
+    try {
+      const fullAddress = `${form.address}, ${form.city}, ${form.state} - ${form.pincode}`;
+      const orderData = {
+        payment_method: 'cod',
+        payment_method_title: 'Cash on Delivery (COD)',
+        status: 'processing',
+        billing: {
+          first_name: form.name,
+          last_name: '',
+          address_1: form.address,
+          address_2: '',
+          city: form.city,
+          state: form.state,
+          postcode: form.pincode,
+          country: 'IN',
+          email: form.email,
+          phone: form.phone,
+        },
+        shipping: {
+          first_name: form.name,
+          last_name: '',
+          address_1: form.address,
+          address_2: '',
+          city: form.city,
+          state: form.state,
+          postcode: form.pincode,
+          country: 'IN',
+        },
+        line_items: items.map((item) => ({
+          product_id: parseInt(String(item.id), 10),
+          quantity: item.quantity,
+        })),
+        shipping_lines: deliveryCharges > 0 ? [{
+          method_id: 'flat_rate',
+          method_title: 'Premium Delivery',
+          total: deliveryCharges.toString(),
+        }] : [],
+        coupon_lines: appliedCoupon ? [{
+          code: appliedCoupon.toLowerCase(),
+          discount: couponDiscount.toString(),
+        }] : [],
+        customer_note: form.notes + (form.notes ? '\n\n' : '') + 
+          `WhatsApp: ${form.whatsapp}\n` +
+          `Full Address: ${fullAddress}` +
+          (appliedCoupon ? `\nCoupon Applied: ${appliedCoupon} (₹${couponDiscount} discount)` : ''),
+        meta_data: [
+          { key: 'whatsapp_number', value: form.whatsapp },
+          { key: 'full_address', value: fullAddress },
+          { key: 'original_subtotal', value: total.toString() },
+          { key: 'delivery_charges', value: deliveryCharges.toString() },
+          { key: 'final_total', value: finalTotal.toString() },
+          { key: 'payment_method', value: 'cod' },
+          ...(appliedCoupon ? [
+            { key: 'coupon_code', value: appliedCoupon },
+            { key: 'coupon_discount', value: couponDiscount.toString() }
+          ] : []),
+        ],
+      };
+
+      const wooOrder = await createWooCommerceOrder(orderData);
+
+      const orderItems: CartItem[] = items.map(item => ({
+        id: item.id, 
+        name: item.name, 
+        price: parseFloat(item.price), 
+        quantity: item.quantity
+      }));
+      trackPurchase(orderItems, finalTotal, String(wooOrder.id));
+
+      clear();
+
+      toast({
+        title: "Order Placed Successfully!",
+        description: `Order #${wooOrder.id} confirmed. Pay cash on delivery.`,
+      });
+
+      setTimeout(() => {
+        router.push(`/order-confirmation?wcOrderId=${wooOrder.id}&cod=true`);
+      }, 1000);
+
+    } catch (error) {
+      toast({
+        title: "Order Failed",
+        description: error instanceof Error ? error.message : "Please try again",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+      setStep("form");
+    }
+  };
+
   const handlePaymentSuccess = async (wooOrder: WooCommerceOrder, response: RazorpayHandlerResponse): Promise<void> => {
     try {
       await updateWooCommerceOrderStatus(wooOrder.id, 'processing', response);
@@ -338,7 +442,6 @@ export default function Checkout(): React.ReactElement {
         description: `Order #${wooOrder.id} confirmed. Redirecting...`,
       });
   
-      // Redirect to order confirmation page
       setTimeout(() => {
         router.push(`/order-confirmation?orderId=${response.razorpay_payment_id}&wcOrderId=${wooOrder.id}`);
       }, 1000);
@@ -350,7 +453,6 @@ export default function Checkout(): React.ReactElement {
         description: "Your payment was successful. We'll contact you soon.",
       });
       
-      // Still redirect even if update fails
       setTimeout(() => {
         router.push(`/order-confirmation?orderId=${response.razorpay_payment_id}&wcOrderId=${wooOrder.id}`);
       }, 2000);
@@ -360,69 +462,71 @@ export default function Checkout(): React.ReactElement {
     }
   };
 
-
   const handlePaymentFailure = async (wooOrder: WooCommerceOrder | null, response: RazorpayFailureResponse): Promise<void> => {
-  if (wooOrder?.id) {
-    try {
-      await updateWooCommerceOrderStatus(wooOrder.id, 'failed');
-    } catch {
-      // Silently handle error
+    if (wooOrder?.id) {
+      try {
+        await updateWooCommerceOrderStatus(wooOrder.id, 'failed');
+      } catch {
+        // Silently handle error
+      }
     }
-  }
 
-  const errorMessage = response?.error?.description || "Payment was not successful";
-  
-  toast({
-    title: "Payment Failed",
-    description: errorMessage,
-    variant: "destructive",
-  });
-
-  setLoading(false);
-  setStep("form");
-
-  // Redirect to payment failed page with details
-  setTimeout(() => {
-    const params = new URLSearchParams({
-      error: errorMessage,
-      ...(wooOrder?.id && { wcOrderId: wooOrder.id.toString() }),
-      amount: finalTotal.toFixed(2)
+    const errorMessage = response?.error?.description || "Payment was not successful";
+    
+    toast({
+      title: "Payment Failed",
+      description: errorMessage,
+      variant: "destructive",
     });
-    router.push(`/payment-failed?${params.toString()}`);
-  }, 1500);
-};
 
-const handlePaymentDismiss = async (wooOrder: WooCommerceOrder | null): Promise<void> => {
-  if (wooOrder?.id) {
-    try {
-      await updateWooCommerceOrderStatus(wooOrder.id, 'cancelled');
-    } catch {
-      // Silently handle error
+    setLoading(false);
+    setStep("form");
+
+    setTimeout(() => {
+      const params = new URLSearchParams({
+        error: errorMessage,
+        ...(wooOrder?.id && { wcOrderId: wooOrder.id.toString() }),
+        amount: finalTotal.toFixed(2)
+      });
+      router.push(`/payment-failed?${params.toString()}`);
+    }, 1500);
+  };
+
+  const handlePaymentDismiss = async (wooOrder: WooCommerceOrder | null): Promise<void> => {
+    if (wooOrder?.id) {
+      try {
+        await updateWooCommerceOrderStatus(wooOrder.id, 'cancelled');
+      } catch {
+        // Silently handle error
+      }
     }
-  }
 
-  toast({
-    title: "Payment Cancelled",
-    description: "You cancelled the payment process",
-    variant: "destructive",
-  });
-
-  setLoading(false);
-  setStep("form");
-
-  // Redirect to payment failed page
-  setTimeout(() => {
-    const params = new URLSearchParams({
-      error: "Payment was cancelled by user",
-      ...(wooOrder?.id && { wcOrderId: wooOrder.id.toString() }),
-      amount: finalTotal.toFixed(2)
+    toast({
+      title: "Payment Cancelled",
+      description: "You cancelled the payment process",
+      variant: "destructive",
     });
-    router.push(`/payment-failed?${params.toString()}`);
-  }, 1500);
-};
+
+    setLoading(false);
+    setStep("form");
+
+    setTimeout(() => {
+      const params = new URLSearchParams({
+        error: "Payment was cancelled by user",
+        ...(wooOrder?.id && { wcOrderId: wooOrder.id.toString() }),
+        amount: finalTotal.toFixed(2)
+      });
+      router.push(`/payment-failed?${params.toString()}`);
+    }, 1500);
+  };
 
   async function handleCheckout(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
+
+    if (paymentMethod === 'cod') {
+      handleCODSubmit();
+      return;
+    }
 
     let wooOrder: WooCommerceOrder | null = null;
 
@@ -564,7 +668,6 @@ const handlePaymentDismiss = async (wooOrder: WooCommerceOrder | null): Promise<
     }
   }
 
-  // Empty cart check
   if (items.length === 0) {
     return (
       <div className="min-h-screen bg-white">
@@ -601,7 +704,6 @@ const handlePaymentDismiss = async (wooOrder: WooCommerceOrder | null): Promise<
       <div className="min-h-screen bg-white pb-10">
         <div className="max-w-2xl mx-auto py-12 px-4">
 
-          {/* Header */}
           <div className="text-center mb-12 pb-8 border-b border-gray-200">
             <h1 className="text-3xl lg:text-4xl font-light text-gray-900 mb-2 tracking-wide">
               Checkout
@@ -609,7 +711,6 @@ const handlePaymentDismiss = async (wooOrder: WooCommerceOrder | null): Promise<
             <p className="text-gray-600 text-sm font-light">Complete your purchase securely</p>
           </div>
 
-          {/* Order Summary */}
           <div className="border border-gray-200 p-6 mb-6">
             <h2 className="text-base font-light text-gray-900 mb-6 uppercase tracking-widest text-xs">Order Summary</h2>
             <div className="space-y-3">
@@ -656,7 +757,6 @@ const handlePaymentDismiss = async (wooOrder: WooCommerceOrder | null): Promise<
             </div>
           </div>
 
-          {/* Coupon Section */}
           <div className="border border-gray-200 p-6 mb-6">
             <h2 className="text-base font-light text-gray-900 mb-4 uppercase tracking-widest text-xs">Coupon Code</h2>
             <div className="flex flex-col sm:flex-row gap-3">
@@ -695,7 +795,6 @@ const handlePaymentDismiss = async (wooOrder: WooCommerceOrder | null): Promise<
             </div>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleCheckout} className="border border-gray-200 p-8">
             <h2 className="text-base font-light text-gray-900 mb-8 uppercase tracking-widest text-xs">Delivery Information</h2>
 
@@ -893,6 +992,34 @@ const handlePaymentDismiss = async (wooOrder: WooCommerceOrder | null): Promise<
             </div>
 
             <div className="bg-gray-50 p-6 mb-8 border border-gray-200">
+              <h3 className="text-xs font-light text-gray-600 mb-3 uppercase tracking-widest">Payment Method</h3>
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod('razorpay')}
+                  className={`flex-1 p-3 border text-xs font-light uppercase tracking-widest transition-colors ${
+                    paymentMethod === 'razorpay'
+                      ? 'bg-black text-white border-black'
+                      : 'bg-white text-gray-900 border-gray-300 hover:border-black'
+                  }`}
+                >
+                  Online Payment
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod('cod')}
+                  className={`flex-1 p-3 border text-xs font-light uppercase tracking-widest transition-colors ${
+                    paymentMethod === 'cod'
+                      ? 'bg-black text-white border-black'
+                      : 'bg-white text-gray-900 border-gray-300 hover:border-black'
+                  }`}
+                >
+                  Cash on Delivery
+                </button>
+              </div>
+            </div>
+
+            <div className="bg-gray-50 p-6 mb-8 border border-gray-200">
               <div className="flex items-center justify-between">
                 <span className="text-sm text-gray-900 font-light uppercase tracking-widest">Amount</span>
                 <div className="text-right">
@@ -906,26 +1033,27 @@ const handlePaymentDismiss = async (wooOrder: WooCommerceOrder | null): Promise<
               </div>
             </div>
 
-            {/* Payment Button */}
             <button
               type="submit"
               className={`w-full bg-black hover:bg-gray-800 text-white py-4 text-xs font-light tracking-widest uppercase transition-colors ${
-                loading || step === "processing" || !razorpayLoaded 
+                loading || step === "processing" || (paymentMethod === 'razorpay' && !razorpayLoaded)
                   ? "opacity-60 pointer-events-none" 
                   : ""
               }`}
-              disabled={loading || step === "processing" || !razorpayLoaded}
+              disabled={loading || step === "processing" || (paymentMethod === 'razorpay' && !razorpayLoaded)}
             >
               {loading || step === "processing" ? (
                 <div className="flex items-center justify-center">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
                   Processing...
                 </div>
-              ) : !razorpayLoaded ? (
+              ) : paymentMethod === 'razorpay' && !razorpayLoaded ? (
                 <div className="flex items-center justify-center">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
                   Loading...
                 </div>
+              ) : paymentMethod === 'cod' ? (
+                `Place Order (COD ₹${finalTotal.toFixed(2)})`
               ) : (
                 `Pay ₹${finalTotal.toFixed(2)}`
               )}
@@ -933,12 +1061,13 @@ const handlePaymentDismiss = async (wooOrder: WooCommerceOrder | null): Promise<
 
             {step === "processing" && (
               <div className="text-center text-gray-600 text-xs mt-3 font-light">
-                Creating order and processing payment...
+                {paymentMethod === 'cod' 
+                  ? 'Creating your order...'
+                  : 'Creating order and processing payment...'}
               </div>
             )}
           </form>
 
-          {/* Trust Signals */}
           <div className="mt-8 text-center">
             <div className="flex items-center justify-center space-x-6 text-gray-500 text-xs font-light">
               <span>• SSL Secured</span>
