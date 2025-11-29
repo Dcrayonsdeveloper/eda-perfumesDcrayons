@@ -203,16 +203,13 @@ export default function Checkout(): React.ReactElement {
     const upperCode = code.toUpperCase().trim();
     if (upperCode === "FIRST10") {
       if (total >= 499) {
-        return { valid: true, discount: Math.round(total * 0.3), message: "10% discount applied" };
+        return { 
+          valid: true, 
+          discount: Math.round(total * 0.1),  // ✅ 10% = 0.1 (fixed from 0.3)
+          message: "10% discount applied" 
+        };
       } else {
         return { valid: false, discount: 0, message: "Minimum order ₹499 required for FIRST10" };
-      }
-    }
-    if (upperCode === "WELCOME100") {
-      if (total >= 500) {
-        return { valid: true, discount: 100, message: "Welcome discount applied" };
-      } else {
-        return { valid: false, discount: 0, message: "Minimum order ₹500 required for WELCOME100" };
       }
     }
     return { valid: false, discount: 0, message: "Invalid coupon code" };
