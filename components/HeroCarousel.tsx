@@ -3,6 +3,14 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const IMAGES = [
   {
+    src: '/christmas.PNG',
+    alt: 'Christmas Offer',
+  },
+  {
+    src: '/merrychristmas.jpg',
+    alt: 'Christmas Offer',
+  },
+  {
     src: '/edaperfumes-banner.jpg',
     alt: 'Healthy skin with bottle',
   },
