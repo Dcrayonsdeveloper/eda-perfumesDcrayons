@@ -3,12 +3,8 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const IMAGES = [
   {
-    src: '/christmas.PNG',
-    alt: 'Christmas Offer',
-  },
-  {
-    src: '/merrychristmas.jpg',
-    alt: 'Christmas Offer',
+    src: 'https://cms.edaperfumes.com/wp-content/uploads/2026/01/eda-26-banner.jpeg',
+    alt: '26 January',
   },
   {
     src: '/edaperfumes-banner.jpg',
