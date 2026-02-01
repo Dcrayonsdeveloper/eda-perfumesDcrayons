@@ -3,10 +3,6 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const IMAGES = [
   {
-    src: 'https://cms.edaperfumes.com/wp-content/uploads/2026/01/eda-26-banner.jpeg',
-    alt: '26 January',
-  },
-  {
     src: '/edaperfumes-banner.jpg',
     alt: 'Healthy skin with bottle',
   },
