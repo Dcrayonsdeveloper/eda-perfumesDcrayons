@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 import ValentineGiftPackClient from './ValentineGiftPackClient';
 
+
+
+
 export const metadata: Metadata = {
   title: "Valentine's Gift Pack - 2×100ml + 4×10ml @ ₹1099 | Eda Perfumes",
   description: "Exclusive Valentine's Day gift pack - Get 2 signature 100ml perfumes + 4 travel size 10ml perfumes at just ₹1099. Perfect romantic gift for your loved ones.",

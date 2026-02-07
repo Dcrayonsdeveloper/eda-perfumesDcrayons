@@ -15,3 +15,4 @@ export const metadata: Metadata = {
 export default function Buy2GetFreePage() {
   return <Buy2GetFreeClient />;
 }
+//////

@@ -13,6 +13,8 @@ interface ExtendedProduct extends Product {
   categories?: { id: number; name: string; slug?: string }[];
 }
 
+///
+
 export default function ValentineGiftPackClient() {
   const { addToCart, openDrawer } = useCart();
   const [selectedMains, setSelectedMains] = useState<ExtendedProduct[]>([]);
