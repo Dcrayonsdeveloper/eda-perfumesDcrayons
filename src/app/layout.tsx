@@ -67,7 +67,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const fbPixelId = '821676445858360';
+  const fbPixelId = '2061667547953165';
   const gtagId = 'AW-17713098050';
 
   return (
