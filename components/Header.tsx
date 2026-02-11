@@ -316,13 +316,16 @@ export default function Header() {
                 <div>
                   <button
                     className={`w-full text-left px-3 sm:px-4 py-3 text-sm tracking-wide font-light transition-colors flex items-center justify-between ${
-                      location.startsWith(item.to) 
-                        ? "text-black" 
+                      location.startsWith(item.to)
+                        ? "text-black"
                         : "text-gray-600 hover:text-black"
-                    }`}
+                    } ${item.name === "Valentine Offers" ? "text-red-600 animate-pulse font-medium" : ""}`}
                     onClick={() => setMobileActiveSubmenu(mobileActiveSubmenu === item.name ? null : item.name)}
                   >
-                    {item.name}
+                    <span className="flex items-center gap-1">
+                      {item.name === "Valentine Offers" && <span className="text-red-500">❤</span>}
+                      {item.name}
+                    </span>
                     <BiChevronDown className={`text-sm transition-transform duration-200 ${mobileActiveSubmenu === item.name ? 'rotate-180' : ''}`} />
                   </button>
                   
@@ -333,10 +336,14 @@ export default function Header() {
                       <Link
                         key={subItem.name}
                         href={subItem.to}
-                        className={`block px-3 sm:px-4 py-2.5 text-sm transition-colors border-l border-gray-200 ${
-                          location === subItem.to 
-                            ? 'text-black' 
-                            : 'text-gray-500 hover:text-black'
+                        className={`block px-3 sm:px-4 py-2.5 text-sm transition-colors border-l ${
+                          item.name === "Valentine Offers" ? 'border-pink-200' : 'border-gray-200'
+                        } ${
+                          location === subItem.to
+                            ? 'text-black'
+                            : item.name === "Valentine Offers"
+                              ? 'text-gray-500 hover:text-pink-500'
+                              : 'text-gray-500 hover:text-black'
                         }`}
                         onClick={() => {
                           setMobileMenuOpen(false);
