@@ -53,13 +53,104 @@ export default function ProductClient({
     initialProduct ??
     products?.find((p) => p.slug === slug || p.id.toString() === slug)
 
-  // Product description overrides
-  const descriptionOverrides: Record<string, string> = {
+  // Product short_description overrides
+  const shortDescOverrides: Record<string, string> = {
     'oudh-shukran-eau-de-parfum-100ml': '<p><span style="font-weight: 400;">Discover the timeless richness of</span><strong> Oudh Shukran</strong><span style="font-weight: 400;">, a luxurious Arabic fragrance crafted to reflect tradition, depth, and quiet confidence. Designed for those </span><strong>who appreciate bold oriental scents</strong><span style="font-weight: 400;">, this perfume blends elegance with intensity to create a truly memorable presence.</span></p>\n<p><span style="font-weight: 400;">With its deep oudh character and warm woody undertones, </span><strong>Oudh Shukran</strong><span style="font-weight: 400;"> is more than a fragrance — it\'s a</span><strong> statement of sophistication</strong><span style="font-weight: 400;"> rooted in </span><strong>Middle Eastern perfumery</strong><span style="font-weight: 400;">. Powerful yet refined, it leaves a lasting impression wherever you go.</span></p>',
+  };
+
+  // Product full description overrides
+  const descriptionOverrides: Record<string, string> = {
+    'oudh-shukran-eau-de-parfum-100ml': `<p><span style="font-weight: 400;">Oudh Shukran by EDA Perfumes is a refined </span><strong>Arabic attar perfume</strong><span style="font-weight: 400;"> inspired by the depth and richness of traditional Middle Eastern perfumery. Designed for those who appreciate bold, long-lasting fragrances, this Eau de Parfum delivers a luxurious scent experience rooted in authenticity and craftsmanship.</span></p>
+<p><span style="font-weight: 400;">The fragrance opens with warm, resinous accords that immediately set a powerful tone. As it evolves, rich oudh notes take center stage, offering depth, intensity, and a distinctly premium character. The base settles into smooth woody undertones that enhance longevity and leave a strong, confident impression.</span></p>
+<p><span style="font-weight: 400;">Ideal as an </span><strong>Arabic attar perfume for men</strong><span style="font-weight: 400;">, Oudh Shukran reflects strength, elegance, and timeless appeal. Its composition places it among </span><strong>premium arabic perfumes</strong><span style="font-weight: 400;">, making it suitable for evening wear, formal occasions, and cooler weather. For those seeking the </span><strong>best arabic attar perfume</strong><span style="font-weight: 400;">, this fragrance delivers both tradition and modern refinement.</span></p>
+<p><span style="font-weight: 400;">Crafted with precision and quality-focused ingredients, Oudh Shukran represents EDA Perfumes\u2019 commitment to creating authentic, high-performance fragrances that honor Middle Eastern scent traditions.</span></p>
+<h2><strong>How to Use</strong></h2>
+<ul>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Apply on clean, dry skin for optimal performance</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Spray lightly on pulse points such as the neck, wrists, and behind the ears</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Hold the bottle 5 to 7 inches away while applying</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Do not rub after spraying to maintain the fragrance structure</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">A little goes a long way due to its rich and intense profile</span></li>
+</ul>
+<h2><strong>Key Highlights</strong></h2>
+<ul>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Authentic arabic attar inspired fragrance</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Rich oudh-based scent with premium depth</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Long-lasting Eau de Parfum concentration</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Ideal for men who prefer bold fragrances</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Crafted by EDA Perfumes with traditional influence</span></li>
+</ul>
+<h3><strong>Inspired by Traditional Arabic Perfumery</strong></h3>
+<p><span style="font-weight: 400;">Oudh Shukran captures the essence of classic Middle Eastern fragrances, blending rich oudh notes with modern refinement.</span></p>
+<h3><strong>Deep and Long-Lasting Scent Profile</strong></h3>
+<p><span style="font-weight: 400;">This premium arabic perfume is designed to evolve beautifully on the skin, offering depth, warmth, and lasting presence.</span></p>
+<h3><strong>Perfect for Evening and Special Occasions</strong></h3>
+<p><span style="font-weight: 400;">With its bold character, this </span><strong>arabic attar perfume</strong><span style="font-weight: 400;"> is best suited for formal wear, celebrations, and cooler climates.</span></p>
+<h3><strong>Why Choose EDA Perfumes</strong></h3>
+<p><span style="font-weight: 400;">EDA Perfumes creates thoughtfully crafted fragrances that respect tradition while delivering modern performance and consistency.</span></p>`,
+    'nude-poison-elegant-unisex-eau-de-parfum-100ml': `<p><span style="font-weight: 400;">Nude Poison by EDA Perfumes is an elegant unisex perfume created for individuals who appreciate fresh citrus fragrances with a soft floral character. Designed as a premium Eau de Parfum, it delivers a balanced scent profile that feels light, modern, and long-lasting.</span></p>
+<p><span style="font-weight: 400;">The fragrance opens with the brightness of a</span><strong> fresh lemon perfume</strong><span style="font-weight: 400;"> accord, immediately creating a crisp and uplifting impression. This citrus introduction is complemented by vibrant </span><strong>grapefruit perfume</strong><span style="font-weight: 400;"> notes that add energy and a refreshing edge to the composition.</span></p>
+<p><span style="font-weight: 400;">As the fragrance evolves, the heart reveals a smooth </span><strong>jasmine perfume note</strong><span style="font-weight: 400;"> that introduces softness and elegance. This floral layer balances the citrus freshness, creating a fragrance that feels clean yet sophisticated.</span></p>
+<p><span style="font-weight: 400;">The scent settles into a gentle and refined base that supports long-lasting performance throughout the day. Its versatility makes Nude Poison suitable for both daytime wear and relaxed evening settings.</span></p>
+<p><span style="font-weight: 400;">Designed to perform beautifully on different skin types, Nude Poison stands out as an elegant unisex perfume that adapts naturally to personal style. It reflects EDA Perfumes\u2019 commitment to creating fragrances that combine freshness, balance, and modern simplicity.</span></p>
+<h2><strong>How to Use</strong></h2>
+<ul>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Apply on clean, dry skin for best performance</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Spray lightly on pulse points such as the neck, wrists, and behind the ears</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Hold the bottle 5 to 7 inches away while applying</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Avoid rubbing after application to preserve fragrance notes</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Reapply lightly if needed for extended wear</span></li>
+</ul>
+<h2><strong>Key Highlights</strong></h2>
+<ul>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Elegant unisex perfume with citrus-floral balance</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Fresh lemon perfume opening with grapefruit freshness</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Soft</span><strong> jasmine perfume</strong><span style="font-weight: 400;"> heart note</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Long-lasting Eau de Parfum concentration</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Crafted by EDA Perfumes</span></li>
+</ul>
+<h3><strong>Fresh Citrus Opening</strong></h3>
+<p><span style="font-weight: 400;">Nude Poison begins with bright lemon and grapefruit notes that create an instantly refreshing fragrance experience.</span></p>
+<h3><strong>Soft Floral Elegance</strong></h3>
+<p><span style="font-weight: 400;">The j</span><strong>asmine perfume</strong><span style="font-weight: 400;"> heart adds a smooth and sophisticated floral character that enhances balance.</span></p>
+<h3><strong>Perfect Everyday Unisex Fragrance</strong></h3>
+<p><span style="font-weight: 400;">This elegant unisex perfume is designed for daily wear, offering freshness without overpowering intensity.</span></p>
+<h3><strong>Why Choose EDA Perfumes</strong></h3>
+<p><span style="font-weight: 400;">EDA Perfumes creates thoughtfully balanced fragrances that combine modern freshness with reliable performance, making them suitable for everyday lifestyles.</span></p>`,
+    'bad-habits-eau-de-parfum-100ml': `<p><span style="font-weight: 400;">Bad Habits by EDA Perfumes is a modern </span><strong>unisex luxury fragrance</strong><span style="font-weight: 400;"> created for individuals who appreciate bold scents with a balanced and sophisticated character. Crafted as a premium Eau de Parfum, it offers a fragrance experience that feels energetic, expressive, and long-lasting.\u00a0</span></p>
+<p><span style="font-weight: 400;">The fragrance opens with a vibrant </span><strong>fresh citrus perfume</strong><span style="font-weight: 400;"> profile that immediately feels clean and uplifting. This bright introduction creates a refreshing presence that works beautifully in daily wear while maintaining a premium identity.\u00a0</span></p>
+<p><span style="font-weight: 400;">As the scent develops, it reveals a deeper and warmer composition that adds personality and dimension. The evolving notes create a smooth transition into a sensual base, giving the fragrance a </span><strong>seductive perfume for women</strong><span style="font-weight: 400;"> appeal while remaining confidently unisex.\u00a0</span></p>
+<p><span style="font-weight: 400;">Designed for versatility, Bad Habits performs well across different occasions, from casual daytime settings to evening outings. Its long-lasting Eau de Parfum concentration ensures the fragrance remains noticeable without feeling overpowering.\u00a0</span></p>
+<p><span style="font-weight: 400;">Developed with attention to balance, longevity, and modern fragrance preferences, </span><strong>Bad Habits</strong><span style="font-weight: 400;"> reflects EDA Perfumes\u2019 commitment to creating premium scents that combine freshness, elegance, and lasting impact.\u00a0</span></p>
+<h2><strong>How to Use</strong></h2>
+<ul>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Apply on clean, dry skin for best performance</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Spray lightly on pulse points such as the neck, wrists, and behind the ears</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Hold the bottle 5 to 7 inches away while applying</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Avoid rubbing after application to maintain fragrance structure</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Reapply lightly if needed for extended wear</span></li>
+</ul>
+<h2><strong>Key Highlights</strong></h2>
+<ul>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Unisex luxury fragrance with modern appeal</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Fresh citrus perfume opening with warm depth</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Long-lasting Eau de Parfum concentration</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Suitable for both men and women</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Crafted by EDA Perfumes</span></li>
+</ul>
+<h3><strong>A Fresh Yet Seductive Signature</strong></h3>
+<p><span style="font-weight: 400;">Bad Habits combines citrus freshness with a sensual dry-down, creating a fragrance that feels energetic yet sophisticated.</span></p>
+<h3><strong>Designed for Confident Personalities</strong></h3>
+<p><span style="font-weight: 400;">This unisex luxury fragrance is created for individuals who enjoy expressive scents that leave a lasting impression.</span></p>
+<h3><strong>Versatile for Any Occasion</strong></h3>
+<p><span style="font-weight: 400;">From daytime freshness to evening elegance, Bad Habits adapts easily to different settings and styles.</span></p>
+<h2><strong>Why Choose EDA Perfumes</strong></h2>
+<p><span style="font-weight: 400;">EDA Perfumes focuses on crafting premium fragrances that balance freshness, performance, and modern luxury, allowing every scent to become a personal signature.</span></p>`,
   };
 
   const product = rawProduct ? {
     ...rawProduct,
+    ...(rawProduct.slug && shortDescOverrides[rawProduct.slug] ? { short_description: shortDescOverrides[rawProduct.slug] } : {}),
     ...(rawProduct.slug && descriptionOverrides[rawProduct.slug] ? { description: descriptionOverrides[rawProduct.slug] } : {}),
   } : undefined;
 
@@ -428,7 +519,7 @@ export default function ProductClient({
             </Tab.List>
             <Tab.Panels className="py-8">
               <Tab.Panel>
-                <div className="prose prose-sm max-w-none text-gray-700 leading-relaxed font-light" 
+                <div className="prose prose-sm max-w-none text-gray-700 leading-relaxed"
                      dangerouslySetInnerHTML={{ __html: product.description || '' }} />
               </Tab.Panel>
               <Tab.Panel>
