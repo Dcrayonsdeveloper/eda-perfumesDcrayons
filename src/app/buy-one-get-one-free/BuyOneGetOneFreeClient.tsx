@@ -50,8 +50,13 @@ export default function BuyOneGetOneFreeClient() {
     ? mainPerfumes
     : mainPerfumes.filter(p => p.categories?.some(c => c.name === selectedCategory));
 
-  // Filter 10ml products
-  const miniPerfumes = allProducts.filter((p) => /10\s*ml/i.test(p.name));
+  // Filter 10ml products - exclude pocket combos
+  const miniPerfumes = allProducts.filter((p) =>
+    /10\s*ml/i.test(p.name) &&
+    !/\+/.test(p.name) &&
+    !/2\s*[x×]\s*10\s*ml/i.test(p.name) &&
+    !/combo|pack|bundle|duo|set|pocket/i.test(p.name)
+  );
 
   const handleMainSelect = (product: ExtendedProduct) => {
     setSelectedMain(product);

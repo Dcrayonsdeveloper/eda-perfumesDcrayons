@@ -48,8 +48,13 @@ export default function BuyThreeGetGiftsClient() {
     ? mainPerfumes
     : mainPerfumes.filter(p => p.categories?.some(c => c.name === selectedCategory));
 
-  // Filter 10ml products for gifts
-  const giftPerfumes = allProducts.filter((p) => /10\s*ml/i.test(p.name));
+  // Filter 10ml products for gifts - exclude pocket combos
+  const giftPerfumes = allProducts.filter((p) =>
+    /10\s*ml/i.test(p.name) &&
+    !/\+/.test(p.name) &&
+    !/2\s*[x×]\s*10\s*ml/i.test(p.name) &&
+    !/combo|pack|bundle|duo|set|pocket/i.test(p.name)
+  );
 
   const handleQuickAddToCart = (e: React.MouseEvent, product: ExtendedProduct) => {
     e.stopPropagation();
