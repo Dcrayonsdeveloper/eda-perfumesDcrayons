@@ -1103,7 +1103,7 @@ export default function Checkout(): React.ReactElement {
               ) : paymentMethod === 'cod' ? (
                 `Place Order (COD ₹${finalTotal.toFixed(2)})`
               ) : (
-                `Pay ₹{finalTotal.toFixed(2)}`
+                `Pay ₹${finalTotal.toFixed(2)}`
               )}
             </button>
 
