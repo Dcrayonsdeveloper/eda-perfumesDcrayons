@@ -45,6 +45,24 @@ async function getAllProducts() {
 }
 
 async function getProductBySlug(slug: string) {
+  // Fetch directly by slug from WooCommerce API (handles all products, not just first 100)
+  try {
+    const ck = process.env.CONSUMER_KEY || 'ck_b1a13e4236dd41ec9b8e6a1720a69397ddd12da6'
+    const cs = process.env.CONSUMER_SECRET || 'cs_d8439cfabc73ad5b9d82d1d3facea6711f24dfd1'
+    const res = await fetch(
+      `https://cms.edaperfumes.com/wp-json/wc/v3/products?slug=${encodeURIComponent(slug)}&consumer_key=${ck}&consumer_secret=${cs}`,
+      { next: { revalidate: 3600 } }
+    )
+    if (res.ok) {
+      const data = await res.json()
+      if (Array.isArray(data) && data.length > 0) {
+        return normalizeProduct(data[0] as ProductWire)
+      }
+    }
+  } catch {
+    // Fall through to local search
+  }
+  // Fallback: search in first page of products
   const products = await getAllProducts()
   return products.find(p => p.slug === slug || String(p.id) === slug)
 }
