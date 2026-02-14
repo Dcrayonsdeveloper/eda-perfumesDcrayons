@@ -138,7 +138,7 @@ export default function BuyThreeGetGiftsClient() {
         <div className="flex items-center justify-center gap-12 md:gap-16 lg:gap-20 min-w-max mx-auto">
           {/* 3× 100ml - Image oval, clickable */}
           <div className="flex flex-col items-center gap-2 cursor-pointer" onClick={() => document.getElementById('selection-section')?.scrollIntoView({ behavior: 'smooth' })}>
-            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden shadow-lg">
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden transition-transform duration-300 hover:scale-110">
               <img
                 src="https://cms.edaperfumes.com/wp-content/uploads/2026/02/1.png"
                 alt="3× 100ml Signature Perfumes"
@@ -151,7 +151,7 @@ export default function BuyThreeGetGiftsClient() {
 
           {/* 3× 10ml FREE - Image oval, clickable */}
           <div className="flex flex-col items-center gap-2 cursor-pointer" onClick={() => document.getElementById('gifts-section')?.scrollIntoView({ behavior: 'smooth' })}>
-            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden shadow-lg">
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden transition-transform duration-300 hover:scale-110">
               <img
                 src="https://cms.edaperfumes.com/wp-content/uploads/2026/02/2.png"
                 alt="3× 10ml Gift Perfumes"
@@ -164,7 +164,7 @@ export default function BuyThreeGetGiftsClient() {
 
           {/* 6 Perfumes - Image oval */}
           <div className="flex flex-col items-center gap-2">
-            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden shadow-lg">
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden transition-transform duration-300 hover:scale-110">
               <img
                 src="https://cms.edaperfumes.com/wp-content/uploads/2026/02/3.png"
                 alt="6 Perfumes Total Collection"
@@ -177,7 +177,7 @@ export default function BuyThreeGetGiftsClient() {
 
           {/* Premium Quality - Image oval */}
           <div className="flex flex-col items-center gap-2">
-            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden shadow-lg">
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden transition-transform duration-300 hover:scale-110">
               <img
                 src="https://cms.edaperfumes.com/wp-content/uploads/2026/02/4.png"
                 alt="Premium Quality Long Lasting"
@@ -190,7 +190,7 @@ export default function BuyThreeGetGiftsClient() {
 
           {/* 67% OFF - Image oval */}
           <div className="flex flex-col items-center gap-2">
-            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden shadow-lg">
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden transition-transform duration-300 hover:scale-110">
               <img
                 src="https://cms.edaperfumes.com/wp-content/uploads/2026/02/5.png"
                 alt="67% OFF Maximum Savings"

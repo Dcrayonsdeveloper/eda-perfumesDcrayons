@@ -141,7 +141,7 @@ export default function BuyTwoGetFreeClient() {
         <div className="flex items-center justify-center gap-12 md:gap-16 lg:gap-20 min-w-max mx-auto">
           {/* 2× 100ml - Image oval, clickable */}
           <div className="flex flex-col items-center gap-2 cursor-pointer" onClick={() => document.getElementById('selection-section')?.scrollIntoView({ behavior: 'smooth' })}>
-            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden shadow-lg">
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden transition-transform duration-300 hover:scale-110">
               <img
                 src="https://cms.edaperfumes.com/wp-content/uploads/2026/02/6.png"
                 alt="2× 100ml Signature Perfumes"
@@ -154,7 +154,7 @@ export default function BuyTwoGetFreeClient() {
 
           {/* 2× 10ml FREE - Image oval, clickable */}
           <div className="flex flex-col items-center gap-2 cursor-pointer" onClick={() => document.getElementById('gifts-section')?.scrollIntoView({ behavior: 'smooth' })}>
-            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden shadow-lg">
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden transition-transform duration-300 hover:scale-110">
               <img
                 src="https://cms.edaperfumes.com/wp-content/uploads/2026/02/7.png"
                 alt="2× 10ml FREE Travel Sizes"
@@ -167,7 +167,7 @@ export default function BuyTwoGetFreeClient() {
 
           {/* Premium Quality - Image oval */}
           <div className="flex flex-col items-center gap-2">
-            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden shadow-lg">
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden transition-transform duration-300 hover:scale-110">
               <img
                 src="https://cms.edaperfumes.com/wp-content/uploads/2026/02/4.png"
                 alt="Premium Quality Long Lasting"
@@ -180,7 +180,7 @@ export default function BuyTwoGetFreeClient() {
 
           {/* 67% OFF - Image oval */}
           <div className="flex flex-col items-center gap-2">
-            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden shadow-lg">
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden transition-transform duration-300 hover:scale-110">
               <img
                 src="https://cms.edaperfumes.com/wp-content/uploads/2026/02/5.png"
                 alt="67% OFF Limited Time"
